@@ -1,7 +1,22 @@
 /*
  * Create a list that holds all of your cards
  */
-
+let cards = ['.fa-diamond', 
+			 '.fa-diamond', 
+			 '.fa-paper-plane-o',
+			 '.fa-paper-plane-o',
+			 '.fa-anchor',
+			 '.fa-anchor',
+			 '.fa-bolt',
+			 '.fa-bolt',
+			 '.fa-cube',
+			 '.fa-cube',
+			 '.fa-leaf',
+			 '.fa-leaf',
+			 '.fa-bicycle',
+			 '.fa-bicycle',
+			 '.fa-bomb',
+			 '.fa-bomb']
 
 /*
  * Display the cards on the page
@@ -23,6 +38,29 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+// Shuffle cards
+cards = shuffle(cards);
+
+
+// Create HTML element and add to the page
+
+
+const deck = document.querySelector('.deck');
+deck.innerHTML = ""; // Clear all inner elements
+
+
+for (let i of cards) {
+	let cardContainer = document.createElement('li');
+	cardContainer.classList.add('card');
+
+	let card = document.createElement('i');
+	card.className = `fa ${i}`;
+
+	cardContainer.appendChild(card);
+	deck.appendChild(cardContainer);
+
 }
 
 
