@@ -57,7 +57,6 @@ for (let i of cards) {
 
 	let card = document.createElement('i');
 	card.className = `fa ${i}`;
-	card.innerHTML = "::before";
 
 	cardContainer.appendChild(card);
 	deck.appendChild(cardContainer);
