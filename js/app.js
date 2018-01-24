@@ -51,6 +51,7 @@ const deck = document.querySelector('.deck');
 const moves = document.querySelector('.moves');
 
 let openedCards = []; // A list to hold opened cards
+let lockedCards = []; // A list to hold locked cards
 let counter = 0; 
 deck.innerHTML = ""; // Clear all inner elements
 moves.innerText = 0; // Clear moves
@@ -92,11 +93,19 @@ function addOpenedCard(card) {
 function lockCards(card1, card2) {
 	card1.className = "card match";
 	card2.className = "card match";
+	lockedCards.push(card1);
+	lockedCards.push(card2);
 }
 
 function hideCards(card1, card2) {
 	card1.className = "card";
 	card2.className = "card";
+}
+
+function testIfWin(lockedCards) {
+	if (lockedCards.length === 16) {
+		alert(`Congratulations! You win with ${counter} moves!`)
+	}
 }
 
 function clicked(e) {
@@ -108,19 +117,25 @@ function clicked(e) {
 		const clickedCard = e.target;
 	displayCard(clickedCard);
 
-	if (openedCards.length === 0) {
-		addOpenedCard(clickedCard);
-	} else {
-		const thisCardClassName = clickedCard.children[0].className;
-		const originalCard = openedCards.pop();
-		const originalClassName = originalCard.children[0].className;
+		if (openedCards.length === 0) {
+			addOpenedCard(clickedCard);
 
-		if (thisCardClassName === originalClassName) { // Match
-			lockCards(originalCard, clickedCard);
-		} else {	// Not match
-			hideCards(originalCard, clickedCard);
+		} else {
+			const thisCardClassName = clickedCard.children[0].className;
+			const originalCard = openedCards.pop();
+			const originalClassName = originalCard.children[0].className;
+
+			if (thisCardClassName === originalClassName) { // Match
+				lockCards(originalCard, clickedCard);
+				testIfWin(lockedCards);
+
+			} else {	// Not match
+				setTimeout(function() {
+					hideCards(originalCard, clickedCard)
+				}, 500); // Wait 0.5 second before hiding cards
+				
+			}
 		}
-	}
 
 	}
 }
