@@ -40,15 +40,9 @@ function shuffle(array) {
     return array;
 }
 
-// Shuffle cards
-cards = shuffle(cards);
-
-
-// Create HTML element and add to the page
-
-
 const deck = document.querySelector('.deck');
 const moves = document.querySelector('.moves');
+const reflesh = document.querySelector('.fa-repeat');
 
 let openedCards = []; // A list to hold opened cards
 let lockedCards = []; // A list to hold locked cards
@@ -56,19 +50,12 @@ let counter = 0;
 deck.innerHTML = ""; // Clear all inner elements
 moves.innerText = 0; // Clear moves
 
+/*
+QUESTION: How could I simplify above initializaztion
+		  which already exists in function initialize
+*/
 
-for (let i of cards) {
-	let cardContainer = document.createElement('li');
-	cardContainer.classList.add('card');
-
-	let card = document.createElement('i');
-	card.className = `fa ${i}`;
-
-	cardContainer.appendChild(card);
-	deck.appendChild(cardContainer);
-
-}
-
+initialize(); // Initialize the game
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -108,6 +95,31 @@ function testIfWin(lockedCards) {
 	}
 }
 
+function initialize() { // Initialize 
+
+	openedCards = []; 
+	lockedCards = [];
+	counter = 0;
+	deck.innerHTML = "";
+	moves.innerText = 0;
+
+	cards = shuffle(cards); // Shuffle cards
+
+	for (let i of cards) { // Create HTML element and add to the page
+		let cardContainer = document.createElement('li');
+		cardContainer.classList.add('card');
+
+		let card = document.createElement('i');
+		card.className = `fa ${i}`;
+
+		cardContainer.appendChild(card);
+		deck.appendChild(cardContainer);
+
+}
+}
+
+
+
 function clicked(e) {
 	// update counter
 	counter += 1; 
@@ -141,6 +153,8 @@ function clicked(e) {
 }
 
 deck.addEventListener('click', clicked);
+reflesh.addEventListener('click', initialize);
+
 
 
 
