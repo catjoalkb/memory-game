@@ -48,8 +48,12 @@ cards = shuffle(cards);
 
 
 const deck = document.querySelector('.deck');
+const moves = document.querySelector('.moves');
+
 let openedCards = []; // A list to hold opened cards
+let counter = 0; 
 deck.innerHTML = ""; // Clear all inner elements
+moves.innerText = 0; // Clear moves
 
 
 for (let i of cards) {
@@ -96,6 +100,10 @@ function hideCards(card1, card2) {
 }
 
 function clicked(e) {
+	// update counter
+	counter += 1; 
+	moves.innerText = counter;
+
 	if (e.target.nodeName === 'LI') { //Check the target is the desired
 		const clickedCard = e.target;
 	displayCard(clickedCard);
