@@ -81,8 +81,10 @@ function displayCard(card) {
 }
 
 function clicked(e) {
-	clickedCard = e.target;
+	if (e.target.nodeName === 'LI') { //Check the target is the desired
+		clickedCard = e.target;
 	displayCard(clickedCard);
+	}
 }
 
 deck.addEventListener('click', clicked);
