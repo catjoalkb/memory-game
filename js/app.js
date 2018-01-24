@@ -48,6 +48,7 @@ cards = shuffle(cards);
 
 
 const deck = document.querySelector('.deck');
+let openedCards = []; // A list to hold opened cards
 deck.innerHTML = ""; // Clear all inner elements
 
 
@@ -80,10 +81,21 @@ function displayCard(card) {
 	card.innerHTML
 }
 
+function addOpenedCard(card) {
+	openedCards.push(card);
+}
+
 function clicked(e) {
 	if (e.target.nodeName === 'LI') { //Check the target is the desired
-		clickedCard = e.target;
+		const clickedCard = e.target;
 	displayCard(clickedCard);
+
+	if (openedCards.length === 0) {
+		addOpenedCard(clickedCard);
+	} else {
+		addOpenedCard(clickedCard);
+	}
+
 	}
 }
 
