@@ -85,6 +85,16 @@ function addOpenedCard(card) {
 	openedCards.push(card);
 }
 
+function lockCards(card1, card2) {
+	card1.className = "card match";
+	card2.className = "card match";
+}
+
+function hideCards(card1, card2) {
+	card1.className = "card";
+	card2.className = "card";
+}
+
 function clicked(e) {
 	if (e.target.nodeName === 'LI') { //Check the target is the desired
 		const clickedCard = e.target;
@@ -93,7 +103,15 @@ function clicked(e) {
 	if (openedCards.length === 0) {
 		addOpenedCard(clickedCard);
 	} else {
-		addOpenedCard(clickedCard);
+		const thisCardClassName = clickedCard.children[0].className;
+		const originalCard = openedCards.pop();
+		const originalClassName = originalCard.children[0].className;
+
+		if (thisCardClassName === originalClassName) { // Match
+			lockCards(originalCard, clickedCard);
+		} else {	// Not match
+			hideCards(originalCard, clickedCard);
+		}
 	}
 
 	}
