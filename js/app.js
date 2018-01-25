@@ -43,6 +43,7 @@ function shuffle(array) {
 const deck = document.querySelector('.deck');
 const moves = document.querySelector('.moves');
 const reflesh = document.querySelector('.fa-repeat');
+const timer = document.querySelector('.timer');
 const stars = document.querySelector('.stars');
 const star2 = stars.children[1]; // the second star
 const star3 = stars.children[2]; // the third star
@@ -50,6 +51,9 @@ const star3 = stars.children[2]; // the third star
 let openedCards; // A list to hold opened cards
 let lockedCards; // A list to hold locked cards
 let counter; // A counter to count moves
+let timeUsedValue; // A string to show time used
+let ifWin; // A flag to reflect if win
+let startTime; 
 
 initialize(); // Initialize the game
 
@@ -87,7 +91,9 @@ function hideCards(card1, card2) {
 
 function testIfWin(lockedCards) {
 	if (lockedCards.length === 16) {
-		alert(`Congratulations! You win with ${counter} moves!`)
+
+		ifWin = true;
+		alert(`Congratulations! You win with ${counter} moves in ${timeUsedValue}!`)
 	}
 }
 
@@ -98,6 +104,8 @@ function initialize() { // Initialize
 	counter = 0;
 	deck.innerHTML = ""; // Clear all inner elements
 	moves.innerText = 0; // Clear moves
+	startTime = new Date().getTime();
+	ifWin = false;
 
 	cards = shuffle(cards); // Shuffle cards
 
@@ -111,6 +119,8 @@ function initialize() { // Initialize
 		cardContainer.appendChild(card);
 		deck.appendChild(cardContainer);
 
+		GameTimer();
+
 	}
 }
 
@@ -123,8 +133,27 @@ function updateStars(counter) { //Update number of stars according to counter
 	} else {
 		star2.firstElementChild.className = "fa fa-star-o";
 	}
-	
+
 }
+
+function GameTimer() { // Show time used on the page. Reference to reviewer's tips
+
+	setInterval(function() {
+		if (!ifWin) {
+			let currentTime = new Date().getTime();
+			let timeUsed = currentTime - startTime;
+			let hrs = Math.floor((timeUsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			let mins = Math.floor((timeUsed % (1000 * 60 * 60)) / (1000 * 60));
+			let secs = Math.floor((timeUsed % (1000 * 60)) / 1000);
+
+			timeUsedValue = `${hrs} hours  ${mins} mins  ${secs} secs`;
+			timer.innerText = timeUsedValue;
+		}
+	}, 1000); // Reflesh every second
+
+}
+
+
 
 
 
