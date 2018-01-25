@@ -115,9 +115,11 @@ function initialize() { // Initialize
 
 		let card = document.createElement('i');
 		card.className = `fa ${i}`;
-
 		cardContainer.appendChild(card);
 		deck.appendChild(cardContainer);
+
+		star3.firstElementChild.className = "fa fa-star"; // reset stars
+		star2.firstElementChild.className = "fa fa-star";
 
 		GameTimer();
 
@@ -133,7 +135,6 @@ function updateStars(counter) { //Update number of stars according to counter
 	} else {
 		star2.firstElementChild.className = "fa fa-star-o";
 	}
-
 }
 
 function GameTimer() { // Show time used on the page. Reference to reviewer's tips
