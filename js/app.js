@@ -44,16 +44,9 @@ const deck = document.querySelector('.deck');
 const moves = document.querySelector('.moves');
 const reflesh = document.querySelector('.fa-repeat');
 
-let openedCards = []; // A list to hold opened cards
-let lockedCards = []; // A list to hold locked cards
-let counter = 0; 
-deck.innerHTML = ""; // Clear all inner elements
-moves.innerText = 0; // Clear moves
-
-/*
-QUESTION: How could I simplify above initializaztion
-		  which already exists in function initialize
-*/
+let openedCards; // A list to hold opened cards
+let lockedCards; // A list to hold locked cards
+let counter; // A counter to count moves
 
 initialize(); // Initialize the game
 
@@ -100,8 +93,8 @@ function initialize() { // Initialize
 	openedCards = []; 
 	lockedCards = [];
 	counter = 0;
-	deck.innerHTML = "";
-	moves.innerText = 0;
+	deck.innerHTML = ""; // Clear all inner elements
+	moves.innerText = 0; // Clear moves
 
 	cards = shuffle(cards); // Shuffle cards
 
