@@ -43,6 +43,9 @@ function shuffle(array) {
 const deck = document.querySelector('.deck');
 const moves = document.querySelector('.moves');
 const reflesh = document.querySelector('.fa-repeat');
+const stars = document.querySelector('.stars');
+const star2 = stars.children[1]; // the second star
+const star3 = stars.children[2]; // the third star
 
 let openedCards; // A list to hold opened cards
 let lockedCards; // A list to hold locked cards
@@ -108,7 +111,19 @@ function initialize() { // Initialize
 		cardContainer.appendChild(card);
 		deck.appendChild(cardContainer);
 
+	}
 }
+
+function updateStars(counter) { //Update number of stars according to counter
+
+	if (counter <= 10) {
+		// Do nothing
+	} else if (counter <= 15) {
+		star3.firstElementChild.className = "fa fa-star-o";
+	} else {
+		star2.firstElementChild.className = "fa fa-star-o";
+	}
+	
 }
 
 
@@ -140,6 +155,9 @@ function clicked(e) {
 			// update counter
 			counter += 1; 
 			moves.innerText = counter;
+
+			// update stars
+			updateStars(counter);
 		}
 
 	}
