@@ -54,6 +54,7 @@ let counter; // A counter to count moves
 let timeUsedValue; // A string to show time used
 let ifWin; // A flag to reflect if win
 let startTime; 
+let numStar; // Number of stars left
 
 initialize(); // Initialize the game
 
@@ -91,9 +92,20 @@ function hideCards(card1, card2) {
 
 function testIfWin(lockedCards) {
 	if (lockedCards.length === 16) {
-
 		ifWin = true;
-		alert(`Congratulations! You win with ${counter} moves in ${timeUsedValue}!`)
+		let strStar; 
+		switch(numStar) {
+			case 1:
+				strStar = "★ star";
+				break;
+			case 2:
+				strStar = "★★ stars";
+				break;
+			case 3:
+				strStar += "★★★ stars";
+				break;
+		}
+		alert(`Congratulations! You've won ${strStar} with ${counter} moves in ${timeUsedValue}!`);
 	}
 }
 
@@ -106,6 +118,7 @@ function initialize() { // Initialize
 	moves.innerText = 0; // Clear moves
 	startTime = new Date().getTime();
 	ifWin = false;
+	numStar = 3;
 
 	cards = shuffle(cards); // Shuffle cards
 
@@ -129,11 +142,15 @@ function initialize() { // Initialize
 function updateStars(counter) { //Update number of stars according to counter
 
 	if (counter <= 10) {
-		// Do nothing
+		numStar = 3;
+
 	} else if (counter <= 15) {
 		star3.firstElementChild.className = "fa fa-star-o";
+		numStar = 2;
+
 	} else {
 		star2.firstElementChild.className = "fa fa-star-o";
+		numStar = 1;
 	}
 }
 
@@ -156,8 +173,11 @@ function GameTimer() { // Show time used on the page. Reference to reviewer's ti
 
 
 function clicked(e) {
-	//Check the target is the desired: list element and not already matched
-	if (e.target.nodeName === 'LI' & e.target.className != "card match") { 
+	//Check the target is the desired: list element and not already matched or opened
+	if (e.target.nodeName === 'LI' 
+		& e.target.className != "card match"
+		& e.target.className != "card open show") {
+
 		const clickedCard = e.target;
 		displayCard(clickedCard);
 
