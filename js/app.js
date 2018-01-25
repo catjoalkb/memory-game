@@ -114,10 +114,6 @@ function initialize() { // Initialize
 
 
 function clicked(e) {
-	// update counter
-	counter += 1; 
-	moves.innerText = counter;
-
 	if (e.target.nodeName === 'LI') { //Check the target is the desired
 		const clickedCard = e.target;
 	displayCard(clickedCard);
@@ -140,6 +136,10 @@ function clicked(e) {
 				}, 500); // Wait 0.5 second before hiding cards
 				
 			}
+
+			// update counter
+			counter += 1; 
+			moves.innerText = counter;
 		}
 
 	}
