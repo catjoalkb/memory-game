@@ -155,13 +155,11 @@ function GameTimer() { // Show time used on the page. Reference to reviewer's ti
 }
 
 
-
-
-
 function clicked(e) {
-	if (e.target.nodeName === 'LI') { //Check the target is the desired
+	//Check the target is the desired: list element and not already matched
+	if (e.target.nodeName === 'LI' & e.target.className != "card match") { 
 		const clickedCard = e.target;
-	displayCard(clickedCard);
+		displayCard(clickedCard);
 
 		if (openedCards.length === 0) {
 			addOpenedCard(clickedCard);
