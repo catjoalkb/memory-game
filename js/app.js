@@ -105,7 +105,9 @@ function testIfWin(lockedCards) {
 				strStar += "★★★ stars";
 				break;
 		}
-		alert(`Congratulations! You've won ${strStar} with ${counter} moves in ${timeUsedValue}!`);
+		setTimeout(function() {
+			alert(`Congratulations! You've won ${strStar} with ${counter} moves in ${timeUsedValue}!`);
+		}, 500); // Delay 0.5 sec to show after the last card shows
 	}
 }
 
