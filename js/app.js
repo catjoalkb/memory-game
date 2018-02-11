@@ -53,8 +53,10 @@ let lockedCards; // A list to hold locked cards
 let counter; // A counter to count moves
 let timeUsedValue; // A string to show time used
 let ifWin; // A flag to reflect if win
-let startTime; 
+let ifTimeStarted; // A flag to reflect if time started
+let startTime;  // Store start time
 let numStar; // Number of stars left
+let timeUpdateId; // Id for time update interval
 
 initialize(); // Initialize the game
 
@@ -111,6 +113,12 @@ function testIfWin(lockedCards) {
 	}
 }
 
+function startTimeRecord() {
+	ifTimeStarted = true;
+	startTime = new Date().getTime();
+	GameTimer();
+}
+
 function initialize() { // Initialize 
 
 	openedCards = []; 
@@ -118,9 +126,14 @@ function initialize() { // Initialize
 	counter = 0;
 	deck.innerHTML = ""; // Clear all inner elements
 	moves.innerText = 0; // Clear moves
-	startTime = new Date().getTime();
 	ifWin = false;
 	numStar = 3;
+	ifTimeStarted = false;
+	timer.innerText = '0 hours 0 mins 0 secs'; 
+
+	if (timeUpdateId) { // Clear interval if exists
+		clearInterval(timeUpdateId)
+	}
 
 	cards = shuffle(cards); // Shuffle cards
 
@@ -135,8 +148,6 @@ function initialize() { // Initialize
 
 		star3.firstElementChild.className = "fa fa-star"; // reset stars
 		star2.firstElementChild.className = "fa fa-star";
-
-		GameTimer();
 
 	}
 }
@@ -158,7 +169,7 @@ function updateStars(counter) { //Update number of stars according to counter
 
 function GameTimer() { // Show time used on the page. Reference to reviewer's tips
 
-	setInterval(function() {
+	timeUpdateId = setInterval(function() {
 		if (!ifWin) {
 			let currentTime = new Date().getTime();
 			let timeUsed = currentTime - startTime;
@@ -179,6 +190,10 @@ function clicked(e) {
 	if (e.target.nodeName === 'LI' 
 		& e.target.className != "card match"
 		& e.target.className != "card open show") {
+
+		if (!ifTimeStarted) { // Test if the first time to click the card
+			startTimeRecord()
+		}
 
 		const clickedCard = e.target;
 		displayCard(clickedCard);
